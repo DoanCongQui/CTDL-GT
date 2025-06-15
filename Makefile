@@ -12,4 +12,4 @@ run: $(TARGET)
 	./$(TARGET)
 
 clean:
-	rm -f *.o $(BUILD_DIR)
+	rm -f *.o $(TARGET)
