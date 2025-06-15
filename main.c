@@ -40,7 +40,7 @@ int main()
                 break;
 
             case 4:
-                xoaSinhVien(&ds, "database/data.txt");
+                xoaSinhVien(&ds, "database/data.txt", "a");
                 break;
 
             case 5:
@@ -51,7 +51,7 @@ int main()
                 break;
 
             case 7:
-                ghiFile(&ds, "database/data.txt");
+                ghiFile(&ds, "database/data.txt", "a");
                 break;
 
             case 0:
@@ -61,7 +61,7 @@ int main()
                     printf("Ban co muon luu truoc khi thoat hay khong y/n: ");
                     scanf("%s", &save);
                     getchar();
-                        if(save == 'y') {ghiFile(&ds, "database/data.txt"); break;}
+                        if(save == 'y') {ghiFile(&ds, "database/data.txt", "a"); break;}
                         if(save == 'n') break;
                     }while(save != 'y' || save != 'n');
                 }

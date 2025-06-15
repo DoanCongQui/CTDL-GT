@@ -10,9 +10,14 @@ void themSinhVien(DSSV *ds)
     SV *sv = &ds->sv[ds->count];
 
     printf("\n======== THEM SINH VIEN =======\n");
-    printf("Nhap MSSV: ");
-    fgets(sv->MSSV, 10, stdin);
-    sv->MSSV[strcspn(sv->MSSV, "\n")] = '\0';
+    do{
+        printf("Nhap MSSV: ");
+        fgets(sv->MSSV, 10, stdin);
+        sv->MSSV[strcspn(sv->MSSV, "\n")] = '\0';
+
+        if (strlen(sv->MSSV) != 8) {printf("MSSV phai du 8 ky tu. Vui long nhap lai!\n");}
+    }while (strlen(sv->MSSV) != 8);
+
     printf("Nhap Ho & Ten: ");
     fgets(sv->HoTen, 50, stdin);
     sv->HoTen[strcspn(sv->HoTen, "\n")] = '\0';
@@ -162,7 +167,7 @@ void xoaSVCache(DSSV *ds, char *mssv) {
     printf("Da xoa sinh vien co MSSV %s\n", mssv);
 }
 
-void xoaSinhVien(DSSV *ds, const char *filename) {
+void xoaSinhVien(DSSV *ds, const char *filename, char *index) {
     int choice;
     char mssv;
     DSSV tempDS = {NULL, 0};
@@ -185,13 +190,13 @@ void xoaSinhVien(DSSV *ds, const char *filename) {
             xoaSVCache(ds, &mssv);
             break;
         case 2:
+            docFile(&tempDS, filename);
             if (tempDS.sv == NULL){printf("\nKhong co sinh vien trong danh sach."); break;}
             printf("Nhap MSSV muon xoa: ");
             scanf("%s", &mssv);
             getchar();
-            docFile(&tempDS, filename);
             xoaSVCache(&tempDS, &mssv);
-            ghiFile(&tempDS, filename);
+            ghiFile(&tempDS, filename, "w");
             break;
 
         case 0:
