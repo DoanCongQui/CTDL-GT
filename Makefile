@@ -1,13 +1,15 @@
 CC=gcc
 BUILD_DIR=build
+CFLAGS = -Wall -Ilib
 
 TARGET=$(BUILD_DIR)/main
+SRCS = main.c lib/sinhvien.c lib/file.c
 
-$(TARGET): main.c
-	$(CC) main.c -o $(TARGET)
+$(TARGET): $(SRCS) | $(BUILD_DIR)
+	$(CC) $(CFLAGS) $(SRCS) -o $(TARGET)
 
 run: $(TARGET)
 	./$(TARGET)
 
 clean:
-	rm -f *.o $(TARGET)
+	rm -f *.o $(BUILD_DIR)
