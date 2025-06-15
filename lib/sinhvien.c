@@ -3,6 +3,7 @@
 #include <string.h>
 #include "sinhvien.h"
 
+// Ham them sinh vien 
 void themSinhVien(DSSV *ds)
 {
     ds->sv = realloc(ds->sv, (ds->count + 1)* sizeof(SV));
@@ -10,7 +11,7 @@ void themSinhVien(DSSV *ds)
 
     printf("\n======== THEM SINH VIEN =======\n");
     printf("Nhap MSSV: ");
-    fgets(sv->MSSV, sizeof(sv->MSSV), stdin);
+    fgets(sv->MSSV, 10, stdin);
     sv->MSSV[strcspn(sv->MSSV, "\n")] = '\0';
     printf("Nhap Ho & Ten: ");
     fgets(sv->HoTen, 50, stdin);
