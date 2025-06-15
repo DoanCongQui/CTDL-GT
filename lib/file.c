@@ -25,7 +25,7 @@ void docFile(DSSV *ds, const char *filename) {
 
 // Function Luu file vao database/data.txt
 void ghiFile(DSSV *ds, const char *filename) {
-    FILE *f = fopen(filename, "w");
+    FILE *f = fopen(filename, "a");
     if (f == NULL) {
         printf("Khong mo duoc file de ghi\n");
         return;

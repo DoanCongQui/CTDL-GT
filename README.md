@@ -4,7 +4,7 @@
 
 ## Hoạt động chương trình
 
-Muốn chạy được chương trình phải download CMake và GCC 
+Muốn chạy được chương trình phải download make và GCC 
 
 - Build code và thực thi
 ```

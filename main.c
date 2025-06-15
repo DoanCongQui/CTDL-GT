@@ -7,7 +7,7 @@ int main()
 {
     DSSV ds = {NULL, 0};
     int choice;
-    char MSSV[9];
+    char MSSV[10];
 
     do {
         printf("\n====== QUAN LY SINH VIEN ======\n");

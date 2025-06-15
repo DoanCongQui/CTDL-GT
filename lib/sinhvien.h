@@ -2,7 +2,7 @@
 #define SINHVIEN_H
 
 typedef struct SINHVIEN {
-    char MSSV[9];
+    char MSSV[10];
     char HoTen[50];
     int old;
     float diem;
