@@ -26,7 +26,7 @@ int main()
 
         switch (choice) {
             case 1:
-                themSinhVien(&ds);
+                themSinhVien(&ds, "database/data.txt");
                 break;
 
             case 2:
@@ -50,6 +50,16 @@ int main()
                 capNhatSinhVien(&ds, MSSV);
                 break;
 
+            case 6:
+                int index;
+                printf("\n0. Tang dan");
+                printf("\n1. Giam dan");
+                printf("\nChon: ");
+                scanf("%d", &index);
+                sapXepSinhVien(&ds, "database/data.txt", index);
+                hienThiSinhVien(&ds);
+                break;
+
             case 7:
                 ghiFile(&ds, "database/data.txt", "a");
                 break;
@@ -61,7 +71,7 @@ int main()
                     printf("Ban co muon luu truoc khi thoat hay khong y/n: ");
                     scanf("%s", &save);
                     getchar();
-                        if(save == 'y') {ghiFile(&ds, "database/data.txt", "a"); break;}
+                        if(save == 'y') {ghiFile(&ds, "database/data.txt", "w"); break;}
                         if(save == 'n') break;
                     }while(save != 'y' || save != 'n');
                 }

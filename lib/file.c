@@ -20,7 +20,7 @@ void docFile(DSSV *ds, const char *filename) {
     }
 
     fclose(f);
-    printf("Doc du lieu tu tep thanh cong!\n");
+    // printf("Doc du lieu tu tep thanh cong!\n");
 }
 
 // Function Luu file vao database/data.txt

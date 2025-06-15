@@ -18,12 +18,13 @@ typedef struct DANHSACHSV {
                     Manager
 ==============================================
 */
-void themSinhVien(DSSV *ds);
+void themSinhVien(DSSV *ds, const char *filename);
 void hienThiSinhVien(DSSV *ds);
 void hienThiDanhSach(DSSV *ds, const char *filename);
 void capNhatSinhVien(DSSV *ds, char *mssv);
 void xoaSinhVien(DSSV *ds, const char *filename, char *index);
 void timKiemSinhVien(DSSV *ds, char *mssv);
+void sapXepSinhVien(DSSV *ds, const char * filename, int tangDan);
 /*
 ==============================================
                     FILE

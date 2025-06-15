@@ -3,8 +3,19 @@
 #include <string.h>
 #include "sinhvien.h"
 
+int checkMSSV(const char *mssv, const char *filename) {
+    DSSV tempDS = {malloc(sizeof(SV)), 0};
+    docFile(&tempDS, filename);
+    for (int i = 0; i < tempDS.count; i++) {
+        if (strcmp(tempDS.sv[i].MSSV, mssv) == 0) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
 // Ham them sinh vien 
-void themSinhVien(DSSV *ds)
+void themSinhVien(DSSV *ds, const char *filename)
 {
     ds->sv = realloc(ds->sv, (ds->count + 1)* sizeof(SV));
     SV *sv = &ds->sv[ds->count];
@@ -15,8 +26,10 @@ void themSinhVien(DSSV *ds)
         fgets(sv->MSSV, 10, stdin);
         sv->MSSV[strcspn(sv->MSSV, "\n")] = '\0';
 
-        if (strlen(sv->MSSV) != 8) {printf("MSSV phai du 8 ky tu. Vui long nhap lai!\n");}
-    }while (strlen(sv->MSSV) != 8);
+        if (strlen(sv->MSSV) != 8) {printf("MSSV phai du 8 ky tu. Vui long nhap lai!\n"); continue;}
+        if (checkMSSV(sv->MSSV, filename)) {printf("Sinh vien nay da ton tai. Vui long nhap lai!\n"); continue;} else break;
+    // }while (strlen(sv->MSSV) != 8 || checkMSSV(ds, filename));
+    }while (1);
 
     printf("Nhap Ho & Ten: ");
     fgets(sv->HoTen, 50, stdin);
