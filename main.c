@@ -26,6 +26,7 @@ int main()
 
         switch (choice) {
             case 1:
+                docFile(&ds, "database/data.txt");
                 themSinhVien(&ds, "database/data.txt");
                 break;
 
@@ -44,10 +45,7 @@ int main()
                 break;
 
             case 5:
-                printf("Nhap MSSV can cap nhat: ");
-                scanf("%s", MSSV);
-                getchar();
-                capNhatSinhVien(&ds, MSSV);
+                capNhatDanhSach(&ds, "database/data.txt");
                 break;
 
             case 6:
@@ -57,11 +55,11 @@ int main()
                 printf("\nChon: ");
                 scanf("%d", &index);
                 sapXepSinhVien(&ds, "database/data.txt", index);
-                hienThiSinhVien(&ds);
+                hienThiSinhVien(&ds, 1, NULL);
                 break;
 
             case 7:
-                ghiFile(&ds, "database/data.txt", "a");
+                ghiFile(&ds, "database/data.txt", "w");
                 break;
 
             case 0:

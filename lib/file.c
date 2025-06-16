@@ -20,7 +20,6 @@ void docFile(DSSV *ds, const char *filename) {
     }
 
     fclose(f);
-    // printf("Doc du lieu tu tep thanh cong!\n");
 }
 
 // Function Luu file vao database/data.txt
@@ -38,9 +37,9 @@ void ghiFile(DSSV *ds, const char *filename, char *index) {
     }
     fclose(f);
     if(ds->sv == NULL) printf("Khong co du lieu de luu");
-    else{
-        printf("Ghi du lieu vao tep thanh cong!\n");
-        ds->sv = NULL;
-        ds->count = 0;
-    } 
+    // else{
+    //     printf("Ghi du lieu vao tep thanh cong!\n");
+    //     ds->sv = NULL;
+    //     ds->count = 0;
+    // } 
 }
