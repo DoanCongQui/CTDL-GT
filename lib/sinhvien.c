@@ -45,6 +45,18 @@ void nhapMSSV(SV *sv, const char * filename, int check){
     }while (1);
 }
 
+void nhapLop(SV *sv){
+    do{
+        printf("Nhap Lop: ");
+        fgets(sv->lop, 15, stdin);
+        sv->lop[strcspn(sv->lop, "\n")] = '\0';
+
+        if (strlen(sv->lop) > 13) {printf("Qua han ky tu. Vui long nhap lai!\n"); continue;}
+        else break;
+    // }while (strlen(sv->MSSV) != 8 || checkMSSV(ds, filename));
+    }while (1);
+}
+
 // Ham them sinh vien 
 void themSinhVien(DSSV *ds, const char *filename)
 {
@@ -65,8 +77,7 @@ void themSinhVien(DSSV *ds, const char *filename)
     printf("Nhap Ho & Ten: ");
     fgets(sv->HoTen, 50, stdin);
     sv->HoTen[strcspn(sv->HoTen, "\n")] = '\0';
-    printf("Nhap tuoi: ");
-    scanf("%d", &sv->old);
+    nhapLop(sv);
     do{
         printf("Nhap diem: ");
         scanf("%g", &sv->diem);
@@ -82,8 +93,8 @@ void capNhatSinhVien(DSSV *ds, const char *filename, char *mssv) {
             do {
                 int *count = &i;
                 printf("\n--- CAP NHAT SINH VIEN ---\n");
-                // printf("\n%d\n", i);
                 hienThiSinhVien(ds, 0, count);
+                printf("\n--------------------------\n");
                 printf("1. Cap nhat ten\n");
                 printf("2. Cap nhat tuoi\n");
                 printf("3. Cap nhat diem\n");
@@ -100,9 +111,10 @@ void capNhatSinhVien(DSSV *ds, const char *filename, char *mssv) {
                         break;
 
                     case 2:
-                        printf("Nhap tuoi moi: ");
-                        scanf("%d", &ds->sv[i].old);
-                        printf("Da cap nhat tuoi!\n");
+                        printf("Nhap lop moi: ");
+                        fgets(ds->sv[i].HoTen, sizeof(ds->sv[i].HoTen), stdin);
+                        ds->sv[i].HoTen[strcspn(ds->sv[i].HoTen, "\n")] = '\0';
+                        printf("Da cap nhat lop!\n");
                         break;
 
                     case 3:
@@ -115,28 +127,27 @@ void capNhatSinhVien(DSSV *ds, const char *filename, char *mssv) {
 
                     case 0:
                         char checkOUT;
-                        while(1)
+                        do
                         {
                             printf("Ban co chac chan muon thoat. Chon y/n: ");
-                            scanf("%s", &checkOUT);
+                            scanf("%c", &checkOUT);
                             getchar();
-                            if(checkOUT=='y'){
+                            if(checkOUT == 'n') break;
+                            else if(checkOUT=='y'){
                                 printf("Thoat va luu thong tin!\n");
                                 ghiFile(ds, filename, "w");
-                                break;
+                                return;
                             }
 
-                            else if(checkOUT == 'n') return;
-                            else printf("Khong hop le");
-                        }
-                        return;
+                            else {printf("Khong hop le");}
+                        }while(checkOUT != 'y' || checkOUT != 'n');
+                        break;
 
                     default:
                         printf("Lua chon khong hop le. Vui long chon lai!\n");
                 }
 
-            } while (choice != 0);
-            return;
+            } while (1);
         }
     }
     printf("Khong tim thay sinh vien can cap nhat.\n");
@@ -166,7 +177,7 @@ void hienThiSinhVien(DSSV *ds, int check, int *count)
             printf("\n====================\n");
             printf("MSSV: %s\n", ds->sv[i].MSSV);
             printf("Ho & Ten: %s\n", ds->sv[i].HoTen);
-            printf("Tuoi: %d\n", ds->sv[i].old);
+            printf("Lop: %s\n", ds->sv[i].lop);
             printf("Diem: %g\n", ds->sv[i].diem);
         }
     }
@@ -175,12 +186,10 @@ void hienThiSinhVien(DSSV *ds, int check, int *count)
         printf("\n====================\n");
         printf("MSSV: %s\n", ds->sv[*count].MSSV);
         printf("Ho & Ten: %s\n", ds->sv[*count].HoTen);
-        printf("Tuoi: %d\n", ds->sv[*count].old);
+        printf("Lop: %s\n", ds->sv[*count].lop);
         printf("Diem: %g\n", ds->sv[*count].diem);
     }
 }
-
-
 
 void hienThiDanhSach(DSSV *ds, const char *filename){
     DSSV *temp = NULL;
@@ -228,15 +237,36 @@ void hienThiDanhSach(DSSV *ds, const char *filename){
 // }
 
 // Tim kiem vs thuat toan Liner Search
-void timKiemSinhVien(DSSV *ds, char *mssv) {
-    DSSV tempDS = {malloc(sizeof(SV)), 0};
-    tempDS.count = 0;
+// void timKiemSinhVien(DSSV *ds, char *mssv) {
+//     DSSV tempDS = {malloc(sizeof(SV)), 0};
+//     tempDS.count = 0;
+//     for (int i = 0; i < ds->count; i++) {
+//         if (strcmp(ds->sv[i].MSSV, mssv) == 0) {
+//             tempDS.sv[0] = ds->sv[i];
+//             hienThiSinhVien(&tempDS, 1, &tempDS.count);
+//         }
+//     }
+// }
+void timKiemSinhVien(DSSV *ds, const char *filename){
+    DSSV *temp = NULL;
+    SV *sv = malloc(sizeof(SV));
+    if(checkSinhVien(ds, filename, &temp))
+    {
+        nhapMSSV(sv, filename, 0);
+        linearSearch(temp, filename, sv->MSSV); 
+        ds = temp;
+    }
+    else printf("Khong tin thay sinh vien\n");
+}
+
+void linearSearch(DSSV *ds, const char *filename, char *mssv) {
     for (int i = 0; i < ds->count; i++) {
         if (strcmp(ds->sv[i].MSSV, mssv) == 0) {
-            tempDS.sv[0] = ds->sv[i];
-            tempDS.count = 1;
-            hienThiSinhVien(&tempDS, 1, NULL);
+            int *count = &i;
+            printf("\n--- SINH VIEN CAN TIM LA ---\n");
+            hienThiSinhVien(ds, 0, count);
         }
+        else {printf("Sinh vien tren khong co trong danh sach\n"); break;}
     }
 }
 
@@ -266,12 +296,12 @@ void xoaSVCache(DSSV *ds, char *mssv) {
 
 void xoaSinhVien(DSSV *ds, const char *filename, char *index) {
     int choice;
-    char mssv;
-    DSSV tempDS = {NULL, 0};
+    DSSV *temp = NULL;
+    SV *sv = malloc(sizeof(SV));
     do {
         printf("\n======== XOA SINH VIEN =========");
-        printf("\n1. Xoa sinh vien vua nhap.\n");
-        printf("2. Xoa sinh vien trong danh sach.\n");
+        printf("\n1. Nhap MSSV de xoa sinh vien.\n");
+        printf("2. Save & Exit\n");
         printf("0. Exit\n");
         printf("================================\n");
         printf("Lua chon: ");
@@ -280,30 +310,70 @@ void xoaSinhVien(DSSV *ds, const char *filename, char *index) {
         switch (choice)
         {
         case 1:
-            if (ds->sv == NULL){printf("\nChua co sinh vien nao duoc them."); break;}
-            printf("Nhap MSSV muon xoa: ");
-            scanf("%s", &mssv);
-            getchar();
-            xoaSVCache(ds, &mssv);
-            break;
-        case 2:
-            docFile(&tempDS, filename);
-            if (tempDS.sv == NULL){printf("\nKhong co sinh vien trong danh sach."); break;}
-            printf("Nhap MSSV muon xoa: ");
-            scanf("%s", &mssv);
-            getchar();
-            xoaSVCache(&tempDS, &mssv);
-            ghiFile(&tempDS, filename, "w");
+            if(checkSinhVien(ds, filename, &temp))
+            {        
+                nhapMSSV(sv, filename, 0);
+                for (int i = 0; i < temp->count; i++) {
+                    if (strcmp(temp->sv[i].MSSV, sv->MSSV) == 0) {
+                        int *count = &i;
+                        hienThiSinhVien(temp, 0, count);
+                    }
+                }
+                char checkOUT;
+                do
+                {
+                    printf("Ban co chac muon xoa sinh vien nay. Chon y/n: ");
+                    scanf("%c", &checkOUT);
+                    getchar();
+                    if(checkOUT == 'n') break;
+                    else if(checkOUT=='y'){
+                        xoaSVCache(temp, sv->MSSV); 
+                        break;
+                    }
+                    else {printf("Khong hop le\n");}
+                }while(checkOUT != 'y' || checkOUT != 'n');
+                break; 
+            }
+            else printf("Khong tin thay sinh vien\n");
             break;
 
-        case 0:
-            printf("Thoat va luu thong tin!\n");
+        case 2:
+            char checkOUT;
+            if(temp == NULL) return;
+            else{
+            do
+            {
+                printf("Ban muon Save & Exit. Chon y/n: ");
+                scanf("%c", &checkOUT);
+                getchar();
+                if(checkOUT == 'n') return;
+                else if(checkOUT=='y'){
+                    printf("Thoat va luu thong tin!\n");
+                    ds = temp;
+                    ghiFile(ds, filename, "w");
+                    break;
+                }
+
+                else {printf("Khong hop le");}
+            }while(checkOUT != 'y' || checkOUT != 'n');}
             break;
         
+        case 0:
+            // char check;
+            do
+            {
+                printf("Ban muon Exit. Chon y/n: ");
+                scanf("%c", &checkOUT);
+                getchar();
+                if(checkOUT == 'n') break;
+                else if(checkOUT=='y') return;
+                else {printf("Khong hop le\n");}
+            }while(checkOUT != 'y' || checkOUT != 'n');
+            break;
         default:
             printf("Lua chon khong hop le. Vui long chon lai!\n");
         }
-    } while (choice != 0);
+    } while (1);
 }
 
 void freeStudentList(DSSV *ds) {

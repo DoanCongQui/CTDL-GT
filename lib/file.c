@@ -14,7 +14,7 @@ void docFile(DSSV *ds, const char *filename) {
     }
 
     SV temp;
-    while (fscanf(f, "%[^,],%[^,],%d,%f\n", temp.MSSV, temp.HoTen, &temp.old, &temp.diem) == 4) {
+    while (fscanf(f, "%[^,],%[^,],%[^,],%f\n", temp.MSSV, temp.HoTen, temp.lop, &temp.diem) == 4) {
         ds->sv = realloc(ds->sv, (ds->count + 1) * sizeof(SV));
         ds->sv[ds->count++] = temp;
     }
@@ -31,9 +31,9 @@ void ghiFile(DSSV *ds, const char *filename, char *index) {
     }
 
     for (int i = 0; i < ds->count; i++) {
-        fprintf(f, "%s,%s,%d,%.2f\n",
+        fprintf(f, "%s,%s,%s,%.2f\n",
             ds->sv[i].MSSV, ds->sv[i].HoTen,
-            ds->sv[i].old, ds->sv[i].diem);
+            ds->sv[i].lop, ds->sv[i].diem);
     }
     fclose(f);
     if(ds->sv == NULL) printf("Khong co du lieu de luu");
