@@ -205,48 +205,6 @@ void hienThiDanhSach(DSSV *ds, const char *filename){
     else printf("Khong co sinh vien trong danh sach");
 }
 
-// void hienThiDanhSach(DSSV *ds, const char *filename)
-// {
-//     int choice;
-//     DSSV tempDS = {NULL, 0};
-//     do {
-//         printf("\n====== HIEN THI SINH VIEN ======");
-//         printf("\n1. Hien thi danh sach vua nhap.\n");
-//         printf("2. Hien thi sanh sach da duoc luu.\n");
-//         printf("0. Exit\n");
-//         printf("================================\n");
-//         printf("Lua chon: ");
-//         scanf("%d", &choice);
-//         getchar();
-//         switch (choice)
-//         {
-//         case 1:
-//             hienThiSinhVien(ds);
-//             break;
-//         case 2:
-//             docFile(&tempDS, filename);
-//             hienThiSinhVien(&tempDS);
-//             break;
-//         case 0:
-//             printf("Thoat va luu thong tin!\n");
-//             break;
-//         default:
-//             printf("Lua chon khong hop le. Vui long chon lai!\n");
-//         }
-//     } while (choice != 0);
-// }
-
-// Tim kiem vs thuat toan Liner Search
-// void timKiemSinhVien(DSSV *ds, char *mssv) {
-//     DSSV tempDS = {malloc(sizeof(SV)), 0};
-//     tempDS.count = 0;
-//     for (int i = 0; i < ds->count; i++) {
-//         if (strcmp(ds->sv[i].MSSV, mssv) == 0) {
-//             tempDS.sv[0] = ds->sv[i];
-//             hienThiSinhVien(&tempDS, 1, &tempDS.count);
-//         }
-//     }
-// }
 void timKiemSinhVien(DSSV *ds, const char *filename){
     DSSV *temp = NULL;
     SV *sv = malloc(sizeof(SV));
@@ -257,17 +215,6 @@ void timKiemSinhVien(DSSV *ds, const char *filename){
         ds = temp;
     }
     else printf("Khong tin thay sinh vien\n");
-}
-
-void linearSearch(DSSV *ds, const char *filename, char *mssv) {
-    for (int i = 0; i < ds->count; i++) {
-        if (strcmp(ds->sv[i].MSSV, mssv) == 0) {
-            int *count = &i;
-            printf("\n--- SINH VIEN CAN TIM LA ---\n");
-            hienThiSinhVien(ds, 0, count);
-        }
-        else {printf("Sinh vien tren khong co trong danh sach\n"); break;}
-    }
 }
 
 // Xoa sinh vien trong bo nho cache
@@ -374,6 +321,35 @@ void xoaSinhVien(DSSV *ds, const char *filename, char *index) {
             printf("Lua chon khong hop le. Vui long chon lai!\n");
         }
     } while (1);
+}
+
+void sapXepSinhVien(DSSV *ds, const char *filename){
+    DSSV *temp = NULL;
+    if(checkSinhVien(ds, filename, &temp))
+    {
+        int choice;
+        ds = temp;
+        while (1)
+            {
+                printf("\n1. Interchange sort");
+                printf("\n2. Bubble sort");
+                printf("\n3. Insertion sort");
+                printf("\n4. Selection sort");
+                printf("\n5. Quick sort");
+                printf("\n0. Exit");
+                printf("\nChon: ");
+                scanf("%d", &choice);
+                getchar();
+                if(choice==1) {InterchangeSort(ds); hienThiSinhVien(ds, 1, NULL); continue;}
+                else if (choice==2) {BubbleSort(ds); hienThiSinhVien(ds, 1, NULL); continue;}
+                else if (choice==3) {InsertionSort(ds); hienThiSinhVien(ds, 1, NULL); continue;}
+                else if (choice==4) {SelectionSort(ds); hienThiSinhVien(ds, 1, NULL); continue;}
+                else if (choice==5) {QuickSort(ds, 0, ds->count -1); hienThiSinhVien(ds, 1, NULL); continue;}
+                else if(choice == 0) break;
+                else {printf("Lau chon khong hop le.\n"); continue;}
+            }
+    }
+    else printf("Khong tin thay sinh vien\n");
 }
 
 void freeStudentList(DSSV *ds) {

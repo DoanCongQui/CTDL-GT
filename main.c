@@ -4,16 +4,16 @@
 #include "lib/sinhvien.h"
 
 
-void test(DSSV *ds)
-{
-    int index;
-    printf("\n0. Tang dan");
-    printf("\n1. Giam dan");
-    printf("\nChon: ");
-    scanf("%d", &index);
-    sapXepSinhVien(ds, "database/data.txt", index);
-    hienThiSinhVien(ds, 1, NULL);
-}
+// void test(DSSV *ds)
+// {
+//     int index;
+//     printf("\n0. Tang dan");
+//     printf("\n1. Giam dan");
+//     printf("\nChon: ");
+//     scanf("%d", &index);
+//     sapXepSinhVien(ds, "database/data.txt", index);
+//     hienThiSinhVien(ds, 1, NULL);
+// }
 
 int main()
 {
@@ -56,12 +56,12 @@ int main()
                     printf("\nChon: ");
                     scanf("%d", &index);
                     getchar();
+                    if(index==1) {timKiemSinhVien(&ds, "database/data.txt"); continue;}
                     if(index==2) {timKiemSinhVien(&ds, "database/data.txt"); continue;}
                     else if (index == 0) break;
+                    else {printf("Lua chon k hop le vui long nhap lai.\n"); continue;}
                 }
                 break;
-                // printf("Nhap MSSV can tim: ");
-                // scanf("%s", MSSV);
 
             case 4:
                 xoaSinhVien(&ds, "database/data.txt", "a");
@@ -72,20 +72,7 @@ int main()
                 break;
 
             case 6:
-                while (1)
-                {
-                    printf("\n1. Interchange sort");
-                    printf("\n2. Bubble sort");
-                    printf("\n3. Insertion sort");
-                    printf("\n4. Selection sort");
-                    printf("\n5. Quick sort");
-                    printf("\n0. Exit");
-                    printf("\nChon: ");
-                    scanf("%d", &index);
-                    getchar();
-                    if(index==5) {test(&ds); continue;}
-                    else if (index == 0) break;
-                }
+                sapXepSinhVien(&ds, "database/data.txt");
                 break;
 
             case 7:

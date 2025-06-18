@@ -29,8 +29,9 @@ void capNhatSinhVien(DSSV *ds, const char *filename, char *mssv);
 void capNhatDanhSach(DSSV *ds, const char *filename);
 void xoaSinhVien(DSSV *ds, const char *filename, char *index);
 void timKiemSinhVien(DSSV *ds, const char *filename);
-void sapXepSinhVien(DSSV *ds, const char * filename, int tangDan);
+void sapXepSinhVien(DSSV *ds, const char * filename);
 void linearSearch(DSSV *ds, const char *filename, char *mssv);
+
 /*
 ==============================================
                     FILE
@@ -39,4 +40,25 @@ void linearSearch(DSSV *ds, const char *filename, char *mssv);
 void docFile(DSSV *ds, const char *filename); 
 void ghiFile(DSSV *ds, const char *filename, char *index);
 void freeStudentList(DSSV *ds);
+
+
+/*
+==============================================
+                    SORT
+==============================================
+*/
+void InterchangeSort(DSSV *ds); 
+void BubbleSort(DSSV *ds);
+void InsertionSort(DSSV *ds);
+void SelectionSort(DSSV *ds);
+void QuickSort(DSSV *ds, int left, int right); 
+
+
+/*
+==============================================
+                    SEARCH
+==============================================
+*/
+void linearSearch(DSSV *ds, const char *filename, char *mssv);
+int binarySearchMSSV(DSSV *ds, const char *mssv);
 #endif
