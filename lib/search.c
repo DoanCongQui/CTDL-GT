@@ -3,25 +3,41 @@
 #include <string.h>
 #include "sinhvien.h"
 
-void linearSearch(DSSV *ds, const char *filename, char *mssv) {
+// Thuat toan tiem kiem linear search
+void linearSearch(DSSV *ds, const char *mssv) {
+    int index = 0;
     for (int i = 0; i < ds->count; i++) {
         if (strcmp(ds->sv[i].MSSV, mssv) == 0) {
-            int *count = &i;
-            printf("\n--- SINH VIEN CAN TIM LA ---\n");
-            hienThiSinhVien(ds, 0, count);
+            printf("\n\t\t\t\tSINH VIEN CAN TIM\n");
+            hienThiSinhVien(ds, 0, &i);
+            index = 1;
         }
-        else {printf("Sinh vien tren khong co trong danh sach\n"); break;}
     }
+    if(!index){printf("Khong co sinh vien trong danh sach. Vui long nhap lai.!\n");}
 }
 
-int binarySearchMSSV(DSSV *ds, const char *mssv) {
+// Thuat toan tiem kiem binary search
+void binarySearch(DSSV *ds, const char *mssv) {
     int left = 0, right = ds->count - 1;
+    int found = 0;
     while (left <= right) {
         int mid = (left + right) / 2;
         int cmp = strcmp(ds->sv[mid].MSSV, mssv);
-        if (cmp == 0) return mid;
-        else if (cmp < 0) left = mid + 1;
-        else right = mid - 1;
+        if (cmp == 0) {
+            printf("\n\t\t\t\tSINH VIEN CAN TIM\n");
+            hienThiSinhVien(ds, 0, &mid);
+            found = 1;
+            break; 
+        }
+        else if (cmp < 0) {
+            left = mid + 1;
+        }
+        else {
+            right = mid - 1;
+        }
     }
-    return -1;
+
+    if (!found) {
+        printf("Khong co sinh vien trong danh sach. Vui long nhap lai.!\n");
+    }
 }

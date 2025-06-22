@@ -3,24 +3,10 @@
 #include <string.h>
 #include "lib/sinhvien.h"
 
-
-// void test(DSSV *ds)
-// {
-//     int index;
-//     printf("\n0. Tang dan");
-//     printf("\n1. Giam dan");
-//     printf("\nChon: ");
-//     scanf("%d", &index);
-//     sapXepSinhVien(ds, "database/data.txt", index);
-//     hienThiSinhVien(ds, 1, NULL);
-// }
-
 int main()
 {
     DSSV ds = {NULL, 0};
     int choice;
-    // char MSSV[10];
-    int index;
 
     do {
         printf("\n====== QUAN LY SINH VIEN ======\n");
@@ -48,23 +34,11 @@ int main()
                 break;
             
             case 3:
-                while (1)
-                {
-                    printf("\n1. Linear Search");
-                    printf("\n2. Binary Search");
-                    printf("\n0. Exit");
-                    printf("\nChon: ");
-                    scanf("%d", &index);
-                    getchar();
-                    if(index==1) {timKiemSinhVien(&ds, "database/data.txt"); continue;}
-                    if(index==2) {timKiemSinhVien(&ds, "database/data.txt"); continue;}
-                    else if (index == 0) break;
-                    else {printf("Lua chon k hop le vui long nhap lai.\n"); continue;}
-                }
+                timKiemSinhVien(&ds, "database/data.txt");
                 break;
 
             case 4:
-                xoaSinhVien(&ds, "database/data.txt", "a");
+                xoaDSSinhVien(&ds, "database/data.txt");
                 break;
 
             case 5:
@@ -76,7 +50,10 @@ int main()
                 break;
 
             case 7:
+                if(ds.sv == NULL) {printf("Chua co sinh vien nao duoc chinh sua\n"); break;}
                 ghiFile(&ds, "database/data.txt", "w");
+                printf("Danh sach da duoc luu");
+                ds.sv = NULL;
                 break;
 
             case 0:

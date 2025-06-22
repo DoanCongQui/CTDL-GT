@@ -15,22 +15,27 @@ typedef struct DANHSACHSV {
 
 /*
 ==============================================
-                    Manager
+            CHECK & INPUT DS
 ==============================================
 */
 int checkMSSV(const char *mssv, const char *filename);
 int checkSinhVien(DSSV *ds, const char *filename,DSSV **dsout);
 void nhapMSSV(SV *sv, const char * filename, int check);
 void nhapLop(SV *sv);
+
+/*
+==============================================
+                    Manager
+==============================================
+*/
 void themSinhVien(DSSV *ds, const char *filename);
 void hienThiSinhVien(DSSV *ds, int check, int *count);
 void hienThiDanhSach(DSSV *ds, const char *filename);
 void capNhatSinhVien(DSSV *ds, const char *filename, char *mssv);
 void capNhatDanhSach(DSSV *ds, const char *filename);
-void xoaSinhVien(DSSV *ds, const char *filename, char *index);
+void xoaDSSinhVien(DSSV *ds, const char *filename);
 void timKiemSinhVien(DSSV *ds, const char *filename);
 void sapXepSinhVien(DSSV *ds, const char * filename);
-void linearSearch(DSSV *ds, const char *filename, char *mssv);
 
 /*
 ==============================================
@@ -51,7 +56,7 @@ void InterchangeSort(DSSV *ds);
 void BubbleSort(DSSV *ds);
 void InsertionSort(DSSV *ds);
 void SelectionSort(DSSV *ds);
-void QuickSort(DSSV *ds, int left, int right); 
+void QuickSort(DSSV *ds); 
 
 
 /*
@@ -59,6 +64,6 @@ void QuickSort(DSSV *ds, int left, int right);
                     SEARCH
 ==============================================
 */
-void linearSearch(DSSV *ds, const char *filename, char *mssv);
-int binarySearchMSSV(DSSV *ds, const char *mssv);
+void linearSearch(DSSV *ds, const char *mssv);
+void binarySearch(DSSV *ds, const char *mssv);
 #endif

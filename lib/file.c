@@ -18,7 +18,6 @@ void docFile(DSSV *ds, const char *filename) {
         ds->sv = realloc(ds->sv, (ds->count + 1) * sizeof(SV));
         ds->sv[ds->count++] = temp;
     }
-
     fclose(f);
 }
 
@@ -37,9 +36,4 @@ void ghiFile(DSSV *ds, const char *filename, char *index) {
     }
     fclose(f);
     if(ds->sv == NULL) printf("Khong co du lieu de luu");
-    // else{
-    //     printf("Ghi du lieu vao tep thanh cong!\n");
-    //     ds->sv = NULL;
-    //     ds->count = 0;
-    // } 
 }

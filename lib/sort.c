@@ -3,6 +3,7 @@
 #include <string.h>
 #include "sinhvien.h"
 
+// Ham input tang giam 
 int tangGiam()
 {
     int index;
@@ -13,24 +14,25 @@ int tangGiam()
     return index;
 }
 
+// Ham ss sap xep
 int soSanhSinhVien(SV a, SV b, int tangDan) {
-    // So sánh điểm
+    // So sanh diem
     if (a.diem != b.diem) {
         return tangDan ? (a.diem > b.diem) : (a.diem < b.diem);
     }
 
-    // So sánh tên (HoTen)
+    // So sanh (HoTen)
     int tenCmp = strcmp(a.HoTen, b.HoTen);
     if (tenCmp != 0) {
         return tangDan ? (tenCmp > 0) : (tenCmp < 0);
     }
 
-    // So sánh MSSV
+    // So sanh MSSV
     int mssvCmp = strcmp(a.MSSV, b.MSSV);
     return tangDan ? (mssvCmp > 0) : (mssvCmp < 0);
 }
 
-
+// Ham hoan vi giua 2 sinh vien
 void Swap(SV *a, SV *b) {
     SV temp = *a;
     *a = *b;
@@ -93,8 +95,7 @@ void SelectionSort(DSSV *ds) {
 }
 
 // 5. Quick Sort
-void QuickSort(DSSV *ds, int left, int right) {
-    int tang = tangGiam();
+void quickSort(DSSV *ds, int left, int right, int tang) {
     int i = left, j = right;
     float pivot = ds->sv[(left + right) / 2].diem;
     while (i <= j) {
@@ -105,8 +106,14 @@ void QuickSort(DSSV *ds, int left, int right) {
             i++; j--;
         }
     }
-    if (left < j) QuickSort(ds, left, j);
-    if (i < right) QuickSort(ds, i, right);
+    if (left < j) quickSort(ds, left, j, tang);
+    if (i < right) quickSort(ds, i, right, tang);
 }
+
+void QuickSort(DSSV *ds) {
+    int tang = tangGiam();  // 0 = giảm, 1 = tăng
+    quickSort(ds, 0, ds->count - 1, tang);
+}
+
 
 
